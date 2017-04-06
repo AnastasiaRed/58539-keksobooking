@@ -8,24 +8,24 @@ var OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'co
 var offers = [];
 
 var getRandomArray = function (array) {
-    return array.slice(0, Math.floor(Math.random() * array.length));
-}
+  return array.slice(0, Math.floor(Math.random() * array.length));
+};
 
 var getRandomInt = function (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 
-//Generate array with data
+// Generate array with data
 for (var i = 0; i < 8; i++) {
   var newOffer = {
     'author': {
-      'avatar': 'img/avatars/user0'+ (i + 1) +'.png'
+      'avatar': 'img/avatars/user0' + (i + 1) + '.png'
     },
 
     'offer': {
       'title': OFFER_TITLE[i],
       'address': function () {
-        return newOffer.location.x + ', ' + newOffer.location.y
+        return newOffer.location.x + ', ' + newOffer.location.y;
       },
       'price': getRandomInt(1000, 1000000),
       'type': OFFER_TYPE[Math.floor(Math.random() * OFFER_TYPE.length)],
@@ -47,13 +47,13 @@ for (var i = 0; i < 8; i++) {
   offers[i] = newOffer;
 }
 
-//Generate and show pins on the map (according to previously generated data)
+// Generate and show pins on the map (according to previously generated data)
 var PIN_WIDTH = 40;
 var PIN_HEIGHT = 40;
 
 var fragment = document.createDocumentFragment();
 
-for (var i = 0; i < 8; i++) {
+for (i = 0; i < 8; i++) {
 
   var newPin = document.createElement('div');
   newPin.className = 'pin';
@@ -74,17 +74,17 @@ for (var i = 0; i < 8; i++) {
 var map = document.querySelector('.tokyo__pin-map');
 map.appendChild(fragment);
 
-//Configurate dialog window for chosen offer
+// Configurate dialog window for chosen offer
 var lodgeTemplate = document.querySelector('#lodge-template').content;
 
 var updateDialogPanel = function (currentOffer) {
 
-  var lodge =  lodgeTemplate.cloneNode(true);
+  var lodge = lodgeTemplate.cloneNode(true);
 
   var lodgeTitle = lodge.querySelector('.lodge__title');
   lodgeTitle.textContent = currentOffer.offer.title;
 
-  var lodgeAddress  = lodge.querySelector('.lodge__address');
+  var lodgeAddress = lodge.querySelector('.lodge__address');
   lodgeAddress.textContent = currentOffer.offer.address();
 
   var lodgePrice = lodge.querySelector('.lodge__price');
@@ -95,17 +95,17 @@ var updateDialogPanel = function (currentOffer) {
   var getOfferLodgeType = function (offerLodgeType) {
     var offerLodgeTypeName;
     switch (offerLodgeType) {
-        case 'flat':
-          offerLodgeTypeName = 'Квартира';
-          break;
-        case 'bungalo':
-          offerLodgeTypeName = 'Бунгало';
-          break;
-        case 'house':
-          offerLodgeTypeName = 'Дом';
-          break;
-      };
-      return offerLodgeTypeName;
+      case 'flat':
+        offerLodgeTypeName = 'Квартира';
+        break;
+      case 'bungalo':
+        offerLodgeTypeName = 'Бунгало';
+        break;
+      case 'house':
+        offerLodgeTypeName = 'Дом';
+        break;
+    }
+    return offerLodgeTypeName;
   };
   lodgeType.textContent = getOfferLodgeType(currentOffer.offer.type);
 
@@ -116,7 +116,8 @@ var updateDialogPanel = function (currentOffer) {
   lodgeCheckin.textContent = 'Заезд после ' + currentOffer.offer.checkin + ', выезд до ' + currentOffer.offer.checkout;
 
   var lodgeFeatures = lodge.querySelector('.lodge__features');
-  for (var i = 0; i < currentOffer.offer.features.length; i++){
+
+  for (i = 0; i < currentOffer.offer.features.length; i++) {
     var newOfferFeature = document.createElement('span');
     newOfferFeature.className = 'feature__image feature__image--' + currentOffer.offer.features[i];
     lodgeFeatures.appendChild(newOfferFeature);
@@ -133,6 +134,6 @@ var updateDialogPanel = function (currentOffer) {
   var dialogImage = dialogTitle.querySelector('img[alt=Avatar]');
   dialogImage.src = currentOffer.author.avatar;
 
-}
+};
 
 updateDialogPanel(offers[0]);
