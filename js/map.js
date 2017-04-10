@@ -137,7 +137,7 @@ var updateDialogPanel = function (currentOffer) {
 
 };
 
-//Interaction
+// Interaction
 var dialogClose = dialog.querySelector('.dialog__close');
 
 var setPinActive = function (target) {
@@ -154,9 +154,9 @@ var removePinActive = function () {
 var getPinActiveIndex = function (pin) {
   var allPins = pin.parentNode.querySelectorAll('.pin:not(.pin__main)');
   for (i = 0; i < allPins.length; i++) {
-      if (allPins[i] == pin) {
-          return i;
-      }
+	if (allPins[i] === pin) {
+	  return i;
+	}
   }
   return 0;
 };
@@ -190,15 +190,15 @@ var onEscClick = function (evt) {
 map.addEventListener('click', onPinClick);
 map.addEventListener('keydown', function (evt) {
   if (evt.keyCode === 13) {
-    onPinClick (evt);
+    onPinClick(evt);
   }
 });
 
-dialogClose.addEventListener('click',  function (evt) {
+dialogClose.addEventListener('click', function (evt) {
   hideDialog();
 });
 
-dialogClose.addEventListener('keydown',  function (evt) {
+dialogClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === 13) {
     hideDialog();
   }
