@@ -154,9 +154,9 @@ var removePinActive = function () {
 var getPinActiveIndex = function (pin) {
   var allPins = pin.parentNode.querySelectorAll('.pin:not(.pin__main)');
   for (i = 0; i < allPins.length; i++) {
-	if (allPins[i] === pin) {
-	  return i;
-	}
+    if (allPins[i] === pin) {
+      return i;
+    }
   }
   return 0;
 };
