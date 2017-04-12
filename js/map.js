@@ -243,7 +243,7 @@ timeoutSelect.addEventListener('change', onTimeChange);
 roomNumberSelect.addEventListener('change', onRoomNumberChange);
 flatTypeSelect.addEventListener('change', onFlatTypeSelectChange);
 
-submit.addEventListener('click', function(evt) {
+submit.addEventListener('click', function (evt) {
   if (!(title.validity.valid && price.validity.valid)) {
     evt.preventDefault();
   }
