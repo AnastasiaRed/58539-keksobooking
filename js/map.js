@@ -60,6 +60,7 @@ for (i = 0; i < 8; i++) {
   var pinLeftPosition = offers[i].location.x + PIN_WIDTH / 2;
   var pinTopPosition = offers[i].location.y + PIN_HEIGHT;
   newPin.setAttribute('style', 'left: ' + pinLeftPosition + 'px; top: ' + pinTopPosition + 'px;');
+  newPin.setAttribute('tabindex', '0');
 
   var newPinImage = document.createElement('img');
   newPinImage.className = 'rounded';
@@ -75,6 +76,7 @@ var map = document.querySelector('.tokyo__pin-map');
 map.appendChild(fragment);
 
 // Configurate dialog window for chosen offer
+var dialog = document.querySelector('.dialog');
 var lodgeTemplate = document.querySelector('#lodge-template').content;
 
 var updateDialogPanel = function (currentOffer) {
@@ -126,7 +128,6 @@ var updateDialogPanel = function (currentOffer) {
   var lodgeDescription = lodge.querySelector('.lodge__description');
   lodgeDescription.textContent = currentOffer.offer.description;
 
-  var dialog = document.querySelector('.dialog');
   var dialogPanel = dialog.querySelector('.dialog__panel');
   dialog.replaceChild(lodge, dialogPanel);
 
@@ -136,4 +137,71 @@ var updateDialogPanel = function (currentOffer) {
 
 };
 
-updateDialogPanel(offers[0]);
+// Interaction
+var dialogClose = dialog.querySelector('.dialog__close');
+
+var setPinActive = function (target) {
+  target.classList.add('pin--active');
+};
+
+var removePinActive = function () {
+  var pinActive = map.querySelector('.pin--active');
+  if (pinActive !== null) {
+    pinActive.classList.remove('pin--active');
+  }
+};
+
+var getPinActiveIndex = function (pin) {
+  var allPins = pin.parentNode.querySelectorAll('.pin:not(.pin__main)');
+  for (i = 0; i < allPins.length; i++) {
+    if (allPins[i] === pin) {
+      return i;
+    }
+  }
+  return 0;
+};
+
+var showDialog = function () {
+  dialog.style.display = 'block';
+  document.addEventListener('keydown', onEscClick);
+};
+
+var hideDialog = function () {
+  dialog.style.display = 'none';
+  removePinActive();
+  document.removeEventListener('keydown', onEscClick);
+};
+
+var onPinClick = function (evt) {
+  hideDialog();
+  var currentPin = evt.target.classList.contains('pin') ? evt.target : evt.target.parentNode;
+  setPinActive(currentPin);
+  var currentPinIndex = getPinActiveIndex(currentPin);
+  updateDialogPanel(offers[currentPinIndex]);
+  showDialog();
+};
+
+var onEscClick = function (evt) {
+  if (evt.keyCode === 27) {
+    hideDialog();
+  }
+};
+
+map.addEventListener('click', onPinClick);
+map.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    onPinClick(evt);
+  }
+});
+
+dialogClose.addEventListener('click', function (evt) {
+  hideDialog();
+});
+
+dialogClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    hideDialog();
+  }
+});
+
+map.querySelector('.pin:not(.pin__main)').click();
