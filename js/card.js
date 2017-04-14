@@ -50,7 +50,7 @@ window.cardUtils = (function () {
   });
 
   return {
-    updateCard : function (currentOffer) {
+    updateCard: function (currentOffer) {
 
       var lodge = lodgeTemplate.cloneNode(true);
 
@@ -89,7 +89,7 @@ window.cardUtils = (function () {
       cardImage.src = currentOffer.author.avatar;
 
     },
-    showCard : showCard,
-    hideCard : hideCard,
-  }
+    showCard: showCard,
+    hideCard: hideCard,
+  };
 })();

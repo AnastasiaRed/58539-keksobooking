@@ -22,7 +22,7 @@ window.pinUtils = (function () {
   };
 
   return {
-    generatePins : function (offers) {
+    generatePins: function (offers) {
 
       var PIN_WIDTH = 40;
       var PIN_HEIGHT = 40;
@@ -56,6 +56,6 @@ window.pinUtils = (function () {
       }
       return fragment;
     },
-    removePinActive : removePinActive
+    removePinActive: removePinActive
   };
 })();

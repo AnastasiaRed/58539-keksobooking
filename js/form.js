@@ -9,7 +9,6 @@ window.formUtils = (function () {
   var timeoutSelect = form.querySelector('#timeout');
   var roomNumberSelect = form.querySelector('#room_number');
   var capacitySelect = form.querySelector('#capacity');
-  var submit = form.querySelector('.form__submit');
 
   var onTimeChange = function (evt) {
     var curSelectValue = evt.currentTarget.value;
