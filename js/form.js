@@ -2,7 +2,6 @@
 
 window.formUtils = (function () {
   var form = document.querySelector('.notice__form');
-  var title = document.querySelector('#title');
   var price = document.querySelector('#price');
   var flatTypeSelect = form.querySelector('#type');
   var timeSelect = form.querySelector('#time');
