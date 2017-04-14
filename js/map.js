@@ -47,6 +47,26 @@ for (var i = 0; i < 8; i++) {
   offers[i] = newOffer;
 }
 
+// Pin Interaction
+var setPinActive = function (target) {
+  target.classList.add('pin--active');
+};
+
+var removePinActive = function () {
+  var pinActive = map.querySelector('.pin--active');
+  if (pinActive !== null) {
+    pinActive.classList.remove('pin--active');
+  }
+};
+
+var onPinClick = function (evt) {
+  hideDialog();
+  setPinActive(evt.currentTarget);
+  var currentPinIndex = Number(evt.currentTarget.getAttribute('data-index'));
+  updateDialogPanel(offers[currentPinIndex]);
+  showDialog();
+};
+
 // Generate and show pins on the map (according to previously generated data)
 var PIN_WIDTH = 40;
 var PIN_HEIGHT = 40;
@@ -61,6 +81,7 @@ for (i = 0; i < 8; i++) {
   var pinTopPosition = offers[i].location.y + PIN_HEIGHT;
   newPin.setAttribute('style', 'left: ' + pinLeftPosition + 'px; top: ' + pinTopPosition + 'px;');
   newPin.setAttribute('tabindex', '0');
+  newPin.setAttribute('data-index', i);
 
   var newPinImage = document.createElement('img');
   newPinImage.className = 'rounded';
@@ -69,6 +90,12 @@ for (i = 0; i < 8; i++) {
   newPinImage.height = PIN_HEIGHT;
 
   newPin.appendChild(newPinImage);
+  newPin.addEventListener('click', onPinClick);
+  newPin.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === 13) {
+      onPinClick(evt);
+    }
+  });
   fragment.appendChild(newPin);
 }
 
@@ -137,29 +164,8 @@ var updateDialogPanel = function (currentOffer) {
 
 };
 
-// Interaction
+// Dialog Window Interaction
 var dialogClose = dialog.querySelector('.dialog__close');
-
-var setPinActive = function (target) {
-  target.classList.add('pin--active');
-};
-
-var removePinActive = function () {
-  var pinActive = map.querySelector('.pin--active');
-  if (pinActive !== null) {
-    pinActive.classList.remove('pin--active');
-  }
-};
-
-var getPinActiveIndex = function (pin) {
-  var allPins = pin.parentNode.querySelectorAll('.pin:not(.pin__main)');
-  for (i = 0; i < allPins.length; i++) {
-    if (allPins[i] === pin) {
-      return i;
-    }
-  }
-  return 0;
-};
 
 var showDialog = function () {
   dialog.style.display = 'block';
@@ -172,27 +178,11 @@ var hideDialog = function () {
   document.removeEventListener('keydown', onEscClick);
 };
 
-var onPinClick = function (evt) {
-  hideDialog();
-  var currentPin = evt.target.classList.contains('pin') ? evt.target : evt.target.parentNode;
-  setPinActive(currentPin);
-  var currentPinIndex = getPinActiveIndex(currentPin);
-  updateDialogPanel(offers[currentPinIndex]);
-  showDialog();
-};
-
 var onEscClick = function (evt) {
   if (evt.keyCode === 27) {
     hideDialog();
   }
 };
-
-map.addEventListener('click', onPinClick);
-map.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
-    onPinClick(evt);
-  }
-});
 
 dialogClose.addEventListener('click', function (evt) {
   hideDialog();
@@ -205,3 +195,56 @@ dialogClose.addEventListener('keydown', function (evt) {
 });
 
 map.querySelector('.pin:not(.pin__main)').click();
+
+// Form Interaction
+var form = document.querySelector('.notice__form');
+var title = document.querySelector('#title');
+var price = document.querySelector('#price');
+var flatTypeSelect = form.querySelector('#type');
+var timeSelect = form.querySelector('#time');
+var timeoutSelect = form.querySelector('#timeout');
+var roomNumberSelect = form.querySelector('#room_number');
+var capacitySelect = form.querySelector('#capacity');
+var submit = form.querySelector('.form__submit');
+
+var onTimeChange = function (evt) {
+  var curSelectValue = evt.currentTarget.value;
+  var syncElemId = evt.currentTarget.attributes['data-sync'].value;
+  var syncElem = document.getElementById(syncElemId);
+  syncElem.value = curSelectValue;
+};
+
+var updateMinPrice = function (minPrice) {
+  price.setAttribute('min', minPrice);
+};
+
+var onFlatTypeSelectChange = function (evt) {
+  switch (evt.currentTarget.value) {
+    case 'flat':
+      updateMinPrice(1000);
+      break;
+    case 'bungalo':
+      updateMinPrice(0);
+      break;
+    case 'house':
+      updateMinPrice(10000);
+      break;
+  }
+};
+
+var onRoomNumberChange = function (evt) {
+  var curRoomNumber = Number(evt.currentTarget.value);
+  var curCapacity = curRoomNumber > 1 ? 3 : 0;
+  capacitySelect.value = curCapacity;
+};
+
+timeSelect.addEventListener('change', onTimeChange);
+timeoutSelect.addEventListener('change', onTimeChange);
+roomNumberSelect.addEventListener('change', onRoomNumberChange);
+flatTypeSelect.addEventListener('change', onFlatTypeSelectChange);
+
+submit.addEventListener('click', function (evt) {
+  if (!(title.validity.valid && price.validity.valid)) {
+    evt.preventDefault();
+  }
+});
