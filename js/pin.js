@@ -55,13 +55,12 @@ window.pinUtils = (function () {
       if ((pinShiftTop < 0) || ((pinShiftTop + PIN_MAIN_HEIGHT) > mapWrapHeight) || (pinShiftLeft < 0) || ((pinShiftLeft + PIN_MAIN_WIDTH) > mapWrapWidth)) {
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
-      }
-      else{
+      } else {
         pinMain.style.top = pinShiftTop + 'px';
         pinMain.style.left = pinShiftLeft + 'px';
 
         var adressX = (pinMain.offsetTop - shift.y) - PIN_MAIN_WIDTH;
-        var adressY = (pinMain.offsetLeft - shift.x) - PIN_MAIN_HEIGHT/2;
+        var adressY = (pinMain.offsetLeft - shift.x) - PIN_MAIN_HEIGHT / 2;
         var adressInput = document.querySelector('#address');
         adressInput.value = 'x: ' + adressX + ', y: ' + adressY;
       }
@@ -77,8 +76,6 @@ window.pinUtils = (function () {
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
-
-
 
   return {
     generatePins: function (offers) {
