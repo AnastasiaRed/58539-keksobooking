@@ -2,54 +2,43 @@
 
 window.formUtils = (function () {
   var form = document.querySelector('.notice__form');
-  var price = document.querySelector('#price');
-  var flatTypeSelect = form.querySelector('#type');
+
+  // Синхронизация полей времени заезда и выезда
   var timeSelect = form.querySelector('#time');
   var timeoutSelect = form.querySelector('#timeout');
+
+  var syncValues = function (element, value) {
+    element.value = value;
+  };
+
+  timeSelect.addEventListener('change', function (evt) {
+    window.syncFields(evt.currentTarget, timeoutSelect, ['12', '13', '14'], syncValues);
+  });
+  timeoutSelect.addEventListener('change', function (evt) {
+    window.syncFields(evt.currentTarget, timeSelect, ['12', '13', '14'], syncValues);
+  });
+
+  // Синхронизация количества комнат и количества гостей
   var roomNumberSelect = form.querySelector('#room_number');
   var capacitySelect = form.querySelector('#capacity');
 
-  var onTimeChange = function (evt) {
-    var curSelectValue = evt.currentTarget.value;
-    var syncElemId = evt.currentTarget.attributes['data-sync'].value;
-    var syncElem = document.getElementById(syncElemId);
-    syncElem.value = curSelectValue;
+  roomNumberSelect.addEventListener('change', function (evt) {
+    window.syncFields(evt.currentTarget, capacitySelect, ['0', '3', '3'], syncValues);
+  });
+  capacitySelect.addEventListener('change', function (evt) {
+    window.syncFields(evt.currentTarget, roomNumberSelect, ['1', '2', '100'], syncValues);
+  });
+
+  // Синхронизация типа жилья и минимальной цены
+  var price = document.querySelector('#price');
+  var flatTypeSelect = form.querySelector('#type');
+
+  var syncValueWithMin = function (element, value) {
+    element.min = value;
   };
 
-  var updateMinPrice = function (minPrice) {
-    price.setAttribute('min', minPrice);
-  };
-
-  var onFlatTypeSelectChange = function (evt) {
-    switch (evt.currentTarget.value) {
-      case 'flat':
-        updateMinPrice(1000);
-        break;
-      case 'bungalo':
-        updateMinPrice(0);
-        break;
-      case 'house':
-        updateMinPrice(10000);
-        break;
-    }
-  };
-
-  var onRoomNumberChange = function (evt) {
-    var curRoomNumber = Number(evt.currentTarget.value);
-    var curCapacity = curRoomNumber > 1 ? 3 : 0;
-    capacitySelect.value = curCapacity;
-  };
-
-  var onCapacitySelectChange = function (evt) {
-    var curCapacity = Number(evt.currentTarget.value);
-    var curRoomNumber = curCapacity === 0 ? 1 : 2;
-    roomNumberSelect.value = curRoomNumber;
-  };
-
-  timeSelect.addEventListener('change', onTimeChange);
-  timeoutSelect.addEventListener('change', onTimeChange);
-  roomNumberSelect.addEventListener('change', onRoomNumberChange);
-  capacitySelect.addEventListener('change', onCapacitySelectChange);
-  flatTypeSelect.addEventListener('change', onFlatTypeSelectChange);
+  flatTypeSelect.addEventListener('change', function (evt) {
+    window.syncFields(evt.currentTarget, price, ['1000', '0', '10000'], syncValueWithMin);
+  });
 
 })();

@@ -18,7 +18,7 @@ window.pinUtils = (function () {
     setPinActive(evt.currentTarget);
     var currentPinIndex = Number(evt.currentTarget.getAttribute('data-index'));
     window.cardUtils.updateCard(window.keksobookingData[currentPinIndex]);
-    window.cardUtils.showCard();
+    window.showCard();
   };
 
   var mapWrap = document.querySelector('.tokyo');

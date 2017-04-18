@@ -2,9 +2,9 @@
 
 window.cardUtils = (function () {
 
-  var card = document.querySelector('.dialog');
+  window.card = document.querySelector('.dialog');
   var lodgeTemplate = document.querySelector('#lodge-template').content;
-  var cardClose = card.querySelector('.dialog__close');
+  var cardClose = window.card.querySelector('.dialog__close');
 
   var getOfferLodgeType = function (offerLodgeType) {
     var offerLodgeTypeName;
@@ -22,13 +22,8 @@ window.cardUtils = (function () {
     return offerLodgeTypeName;
   };
 
-  var showCard = function () {
-    card.style.display = 'block';
-    document.addEventListener('keydown', onEscClick);
-  };
-
   var hideCard = function () {
-    card.style.display = 'none';
+    window.card.style.display = 'none';
     window.pinUtils.removePinActive();
     document.removeEventListener('keydown', onEscClick);
   };
@@ -82,14 +77,14 @@ window.cardUtils = (function () {
       var lodgeDescription = lodge.querySelector('.lodge__description');
       lodgeDescription.textContent = currentOffer.offer.description;
 
-      var cardPanel = card.querySelector('.dialog__panel');
-      card.replaceChild(lodge, cardPanel);
+      var cardPanel = window.card.querySelector('.dialog__panel');
+      window.card.replaceChild(lodge, cardPanel);
 
-      var cardImage = card.querySelector('.dialog__title img[alt=Avatar]');
+      var cardImage = window.card.querySelector('.dialog__title img[alt=Avatar]');
       cardImage.src = currentOffer.author.avatar;
 
     },
-    showCard: showCard,
     hideCard: hideCard,
+    onEscClick: onEscClick,
   };
 })();
