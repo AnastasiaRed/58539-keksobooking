@@ -7,7 +7,7 @@ window.formUtils = (function () {
   var timeSelect = form.querySelector('#time');
   var timeoutSelect = form.querySelector('#timeout');
 
-  var syncValues = function(element, value) {
+  var syncValues = function (element, value) {
     element.value = value;
   };
 
@@ -22,7 +22,7 @@ window.formUtils = (function () {
   var roomNumberSelect = form.querySelector('#room_number');
   var capacitySelect = form.querySelector('#capacity');
 
-  roomNumberSelect.addEventListener('change',  function (evt) {
+  roomNumberSelect.addEventListener('change', function (evt) {
     window.syncFields(evt.currentTarget, capacitySelect, ['0', '3', '3'], syncValues);
   });
   capacitySelect.addEventListener('change', function (evt) {
@@ -33,7 +33,7 @@ window.formUtils = (function () {
   var price = document.querySelector('#price');
   var flatTypeSelect = form.querySelector('#type');
 
-  var syncValueWithMin = function(element, value) {
+  var syncValueWithMin = function (element, value) {
     element.min = value;
   };
 
