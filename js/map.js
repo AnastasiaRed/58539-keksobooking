@@ -8,7 +8,7 @@ window.mapUtils = (function () {
     var pinFragment = window.pinUtils.generatePins(window.keksobookingData);
     map.appendChild(pinFragment);
     map.querySelector('.pin:not(.pin__main)').click();
-  }
+  };
 
   window.load('https://intensive-javascript-server-kjgvxfepjl.now.sh/keksobooking/data', onLoad);
 

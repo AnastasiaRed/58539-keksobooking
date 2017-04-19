@@ -12,7 +12,7 @@ window.load = (function (url, onLoad) {
 
     node.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', node);
-  }
+  };
 
   var xhr = new XMLHttpRequest();
   xhr.responseType = 'json';
