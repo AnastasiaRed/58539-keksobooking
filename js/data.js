@@ -48,4 +48,4 @@ window.keksobookingData = (function () {
     offers[i] = newOffer;
   }
   return offers;
-})();
+});

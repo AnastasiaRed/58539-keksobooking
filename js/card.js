@@ -53,7 +53,7 @@ window.cardUtils = (function () {
       lodgeTitle.textContent = currentOffer.offer.title;
 
       var lodgeAddress = lodge.querySelector('.lodge__address');
-      lodgeAddress.textContent = currentOffer.offer.address();
+      lodgeAddress.textContent = currentOffer.offer.address;
 
       var lodgePrice = lodge.querySelector('.lodge__price');
       lodgePrice.innerHTML = currentOffer.offer.price + '&#x20bd;/ночь';

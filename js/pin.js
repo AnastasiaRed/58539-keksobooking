@@ -28,6 +28,7 @@ window.pinUtils = (function () {
   var PIN_MAIN_WIDTH = 75;
   var PIN_MAIN_HEIGHT = 94;
   var pinMain = document.querySelector('.pin__main');
+
   pinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
@@ -88,8 +89,8 @@ window.pinUtils = (function () {
 
         var newPin = document.createElement('div');
         newPin.className = 'pin';
-        var pinLeftPosition = offers[i].location.x + PIN_WIDTH / 2;
-        var pinTopPosition = offers[i].location.y + PIN_HEIGHT;
+        var pinLeftPosition = offers[i].location.x;
+        var pinTopPosition = offers[i].location.y;
         newPin.setAttribute('style', 'left: ' + pinLeftPosition + 'px; top: ' + pinTopPosition + 'px;');
         newPin.setAttribute('tabindex', '0');
         newPin.setAttribute('data-index', i);
