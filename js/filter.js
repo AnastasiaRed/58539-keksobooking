@@ -14,33 +14,33 @@
 
     if (offerType) {
       if (offerType !== 'any') {
-        curPinArray = curPinArray.filter(function(it) {
+        curPinArray = curPinArray.filter(function (it) {
           return it.offer.type === offerType;
-        })
+        });
       }
     }
     if (offerPriceMax) {
-      curPinArray = curPinArray.filter(function(it) {
+      curPinArray = curPinArray.filter(function (it) {
         return (it.offer.price >= offerPriceMin) && (it.offer.price <= offerPriceMax);
-      })
+      });
     }
     if (offerRoomNumber) {
       if (offerRoomNumber !== 'any') {
-        curPinArray = curPinArray.filter(function(it) {
+        curPinArray = curPinArray.filter(function (it) {
           return it.offer.rooms === +offerRoomNumber;
-        })
+        });
       }
     }
     if (offerGuestNumber) {
       if (offerGuestNumber !== 'any') {
-        curPinArray = curPinArray.filter(function(it) {
+        curPinArray = curPinArray.filter(function (it) {
           return it.offer.guests === +offerGuestNumber;
-        })
+        });
       }
     }
     if (activeFeatures && activeFeatures.length > 0) {
-      activeFeatures.forEach(function(item, index, array) {
-        curPinArray = curPinArray.filter(function(it) {
+      activeFeatures.forEach(function (item, index, array) {
+        curPinArray = curPinArray.filter(function (it) {
           return it.offer.features.indexOf(item) !== -1;
         });
       });
@@ -94,9 +94,9 @@
     activeFeatures = [].filter.call(filterFeaturesList, function (it) {
       return it.checked === true;
     })
-    .map(function(it) {
+    .map(function (it) {
       return it.value;
-    })
+    });
     window.debounce(updatePinArray);
   });
 })();

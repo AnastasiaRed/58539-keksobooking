@@ -8,7 +8,7 @@
 
   var removePin = function (pin) {
     map.removeChild(pin);
-  }
+  };
 
   var renderPin = function (offer, index) {
     var newPin = document.createElement('div');
@@ -50,5 +50,5 @@
       fragment.appendChild(renderPin(item, index));
     });
     map.appendChild(fragment);
-  }
+  };
 })();
