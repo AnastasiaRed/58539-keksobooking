@@ -21,12 +21,11 @@ window.pinUtils = (function () {
     window.showCard();
   };
 
+  var PIN_MAIN_WIDTH = 75;
+  var PIN_MAIN_HEIGHT = 94;
   var mapWrap = document.querySelector('.tokyo');
   var mapWrapHeight = mapWrap.offsetHeight;
   var mapWrapWidth = mapWrap.offsetWidth;
-
-  var PIN_MAIN_WIDTH = 75;
-  var PIN_MAIN_HEIGHT = 94;
   var pinMain = document.querySelector('.pin__main');
 
   pinMain.addEventListener('mousedown', function (evt) {
@@ -79,39 +78,7 @@ window.pinUtils = (function () {
   });
 
   return {
-    generatePins: function (offers) {
-
-      var PIN_WIDTH = 40;
-      var PIN_HEIGHT = 40;
-      var fragment = document.createDocumentFragment();
-
-      for (var i = 0; i < offers.length; i++) {
-
-        var newPin = document.createElement('div');
-        newPin.className = 'pin';
-        var pinLeftPosition = offers[i].location.x;
-        var pinTopPosition = offers[i].location.y;
-        newPin.setAttribute('style', 'left: ' + pinLeftPosition + 'px; top: ' + pinTopPosition + 'px;');
-        newPin.setAttribute('tabindex', '0');
-        newPin.setAttribute('data-index', i);
-
-        var newPinImage = document.createElement('img');
-        newPinImage.className = 'rounded';
-        newPinImage.src = offers[i].author.avatar;
-        newPinImage.width = PIN_WIDTH;
-        newPinImage.height = PIN_HEIGHT;
-
-        newPin.appendChild(newPinImage);
-        newPin.addEventListener('click', onPinClick);
-        newPin.addEventListener('keydown', function (evt) {
-          if (evt.keyCode === 13) {
-            onPinClick(evt);
-          }
-        });
-        fragment.appendChild(newPin);
-      }
-      return fragment;
-    },
+    onPinClick: onPinClick,
     removePinActive: removePinActive
   };
 })();
