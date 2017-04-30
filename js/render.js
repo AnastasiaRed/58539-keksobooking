@@ -50,4 +50,4 @@ window.render = (function (offers) {
     fragment.appendChild(renderPin(item, index));
   });
   map.appendChild(fragment);
-  });
+});

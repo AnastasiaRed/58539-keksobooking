@@ -29,7 +29,7 @@ window.keksobookingData = (function () {
           return newOffer.location.x + ', ' + newOffer.location.y;
         },
         'price': getRandomInt(1000, 1000000),
-        'type': OFFER_TYPE[Math.floor(Math.random() * OFFER_TYPES.length)],
+        'type': OFFER_TYPES[Math.floor(Math.random() * OFFER_TYPES.length)],
         'rooms': getRandomInt(1, 5),
         'guests': getRandomInt(1, 10),
         'checkin': OFFER_CHECKIN[Math.floor(Math.random() * OFFER_CHECKIN.length)],

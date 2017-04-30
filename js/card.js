@@ -3,7 +3,7 @@
 window.cardUtils = (function () {
 
   var KEYCODE_ENTER = 13;
-  var KEYCODE_ESC= 27;
+  var KEYCODE_ESC = 27;
 
   window.card = document.querySelector('.dialog');
   var lodgeTemplate = document.querySelector('#lodge-template').content;
