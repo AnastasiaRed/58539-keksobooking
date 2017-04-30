@@ -1,9 +1,10 @@
 'use strict';
 
-(function () {
+window.render = (function (offers) {
 
   var PIN_WIDTH = 40;
   var PIN_HEIGHT = 40;
+  var KEYCODE_ENTER = 13;
   var map = document.querySelector('.tokyo__pin-map');
 
   var removePin = function (pin) {
@@ -28,7 +29,7 @@
     newPin.appendChild(newPinImage);
     newPin.addEventListener('click', window.pinUtils.onPinClick);
     newPin.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === 13) {
+      if (evt.keyCode === KEYCODE_ENTER) {
         window.pinUtils.onPinClick(evt);
       }
     });
@@ -38,17 +39,15 @@
 
   var fragment = document.createDocumentFragment();
 
-  window.render = function (offers) {
-    var pinOnMaps = map.querySelectorAll('.pin:not(.pin__main)');
-    if (pinOnMaps) {
-      pinOnMaps.forEach(function (item) {
-        removePin(item);
-      });
-    }
-    offers.forEach(function (item) {
-      var index = window.keksobookingData.indexOf(item);
-      fragment.appendChild(renderPin(item, index));
+  var pinOnMaps = map.querySelectorAll('.pin:not(.pin__main)');
+  if (pinOnMaps) {
+    pinOnMaps.forEach(function (item) {
+      removePin(item);
     });
-    map.appendChild(fragment);
-  };
-})();
+  }
+  offers.forEach(function (item) {
+    var index = window.keksobookingData.indexOf(item);
+    fragment.appendChild(renderPin(item, index));
+  });
+  map.appendChild(fragment);
+  });

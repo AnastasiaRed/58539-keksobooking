@@ -2,8 +2,8 @@
 
 window.keksobookingData = (function () {
   var OFFER_NUMBER = 8;
-  var OFFER_TITLE = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
-  var OFFER_TYPE = ['flat', 'house', 'bungalo'];
+  var OFFER_TITLES = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
+  var OFFER_TYPES = ['flat', 'house', 'bungalo'];
   var OFFER_CHECKIN = ['12:00', '13:00', '14:00'];
   var OFFER_CHECKOUT = ['12:00', '13:00', '14:00'];
   var OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -24,12 +24,12 @@ window.keksobookingData = (function () {
       },
 
       'offer': {
-        'title': OFFER_TITLE[i],
+        'title': OFFER_TITLES[i],
         'address': function () {
           return newOffer.location.x + ', ' + newOffer.location.y;
         },
         'price': getRandomInt(1000, 1000000),
-        'type': OFFER_TYPE[Math.floor(Math.random() * OFFER_TYPE.length)],
+        'type': OFFER_TYPE[Math.floor(Math.random() * OFFER_TYPES.length)],
         'rooms': getRandomInt(1, 5),
         'guests': getRandomInt(1, 10),
         'checkin': OFFER_CHECKIN[Math.floor(Math.random() * OFFER_CHECKIN.length)],

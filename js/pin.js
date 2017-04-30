@@ -36,6 +36,7 @@ window.pinUtils = (function () {
       y: evt.clientY
     };
 
+    var adressInput = document.querySelector('#address');
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
@@ -59,9 +60,8 @@ window.pinUtils = (function () {
         pinMain.style.top = pinShiftTop + 'px';
         pinMain.style.left = pinShiftLeft + 'px';
 
-        var adressX = (pinMain.offsetTop - shift.y) - PIN_MAIN_WIDTH;
-        var adressY = (pinMain.offsetLeft - shift.x) - PIN_MAIN_HEIGHT / 2;
-        var adressInput = document.querySelector('#address');
+        var adressX = pinShiftTop + PIN_MAIN_HEIGHT;
+        var adressY = pinShiftLeft + PIN_MAIN_WIDTH / 2;
         adressInput.value = 'x: ' + adressX + ', y: ' + adressY;
       }
     };
